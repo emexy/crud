@@ -231,7 +231,7 @@ class Crud implements ArrayAccess
 			// the key upon insert.
 			if (isset($this->{static::key()}) and $key === 0)
 			{
-				$this->{static::key()} = $key;
+				$key = $this->{static::key()};
 				$this->is_new(false);
 			}
 			else
