@@ -400,7 +400,7 @@ class Crud implements ArrayAccess
 		// Using SQL timestamps?
 		if ($format === 'sql')
 		{
-			$timestamp = date(DB::connection(static::$_connection)->grammar()->grammar->datetime, $timestamp);
+			$timestamp = date(static::connection()->grammar()->grammar->datetime, $timestamp);
 		}
 
 		$this->updated_at = $timestamp;
@@ -655,6 +655,16 @@ class Crud implements ArrayAccess
 	}
 
 	/**
+	 * Get the database connection.
+	 *
+	 * @return  Laravel\Database\Connection
+	 */
+	public static function connection()
+	{
+		return DB::connection(static::$_connection);
+	}
+
+	/**
 	 * Find a model by either it's primary key
 	 * or a condition that modifies the query object.
 	 *
@@ -838,7 +848,7 @@ class Crud implements ArrayAccess
 	 */
 	public static function query()
 	{
-		return DB::connection(static::$_connection)->table(static::table());
+		return static::connection()->table(static::table());
 	}
 
 	/**
